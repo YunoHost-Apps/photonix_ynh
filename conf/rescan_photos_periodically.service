@@ -1,0 +1,16 @@
+[Unit]
+Description=Photonix rescan_photos_periodically
+After=network.target __APP__-app_server.service
+
+[Service]
+Type=simple
+User=__APP__
+Group=__APP__
+WorkingDirectory=__FINALPATH__/srv/photonix
+EnvironmentFile=__FINALPATH__/photonix.env
+ExecStart=/usr/bin/env bash -c "PATH=__FINALPATH__/venv/bin:$PATH sleep 60 && nice -n 16 __FINALPATH__/venv/bin/python __FINALPATH__/srv/photonix/manage.py rescan_photos_periodically"
+StandardOutput=append:/var/log/__APP__/__APP__-rescan_photos_periodically.log
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target

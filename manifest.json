@@ -1,18 +1,17 @@
 {
-    "name": "YunoHost example app",
-    "id": "ynhexample",
+    "name": "Photonix",
+    "id": "photonix",
     "packaging_format": 1,
     "description": {
-        "en": "Explain in *a few (10~15) words* the purpose of the app or what it actually does (it is meant to give a rough idea to users browsing a catalog of 100+ apps)",
-        "fr": "Expliquez en *quelques* (10~15) mots l'utilité de l'app ou ce qu'elle fait (l'objectif est de donner une idée grossière pour des utilisateurs qui naviguent dans un catalogue de 100+ apps)"
+        "en": "Photo management application that streamlines the process of storing, presenting and re-discovering photos",
+        "fr": "Application de gestion de photos qui simplifie le processus de stocker, présenter er re-découvrir ses photos"
     },
-    "version": "1.0~ynh1",
-    "url": "https://example.com",
-    "license": "free",
+    "version": "0.0.20210418~ynh1",
+    "url": "https://photonix.org/",
+    "license": "AGPL-3.0-only",
     "maintainer": {
-        "name": "John doe",
-        "email": "john.doe@example.com",
-        "url": "http://example.com"
+        "name": "Jules Bertholet",
+        "email": "jules.bertholet@example.com"
     },
     "requirements": {
         "yunohost": ">= 4.1.3"
@@ -20,8 +19,8 @@
     "multi_instance": true,
     "services": [
         "nginx",
-        "php7.3-fpm",
-        "mysql"
+        "postgresql",
+        "redis-server"
     ],
     "arguments": {
         "install" : [
@@ -31,39 +30,67 @@
                 "example": "example.com"
             },
             {
-                "name": "path",
-                "type": "path",
-                "example": "/example",
-                "default": "/example"
-            },
-            {
                 "name": "admin",
                 "type": "user",
                 "example": "johndoe"
             },
+
+            {
+                "name": "classification_color_enabled",
+                "type": "boolean",
+                "default": true,
+                "ask": {
+                    "en": "Analyse photo colors (fast)?",
+                    "fr": "Analyser les couleurs des photos (rapide) ?"
+                },
+                "help": {
+                    "en": "This default parameter can be overridden for individual libraries",
+                    "fr": "Ce paramètre par dèfault peut être modifié pour chaque bibliothèque individuelle"
+                }
+            },
+            {
+                "name": "classification_location_enabled",
+                "type": "boolean",
+                "default": true,
+                "ask": {
+                    "en": "Identify photo locations (medium)?",
+                    "fr": "Identifier la localizations des photos (rapide) ?"
+                },
+                "help": {
+                    "en": "This default parameter can be overridden for individual libraries",
+                    "fr": "Ce paramètre par dèfault peut être modifié pour chaque bibliothèque individuelle"
+                }
+            },
+            {
+                "name": "classification_style_enabled",
+                "type": "boolean",
+                "default": true,
+                "ask": {
+                    "en": "Recognize photo styles (medium)?",
+                    "fr": "Reconnaître le style des photos (moyen) ?"
+                },
+                "help": {
+                    "en": "This default parameter can be overridden for individual libraries",
+                    "fr": "Ce paramètre par dèfault peut être modifié pour chaque bibliothèque individuelle"
+                }
+            },
+            {
+                "name": "classification_object_enabled",
+                "type": "boolean",
+                "default": true,
+                "ask": {
+                    "en": "Detect objects in photos (slow)?",
+                    "fr": "Reconnaître les objets dans les photos (lent) ?"
+                },
+                "help": {
+                    "en": "This default parameter can be overridden for individual libraries",
+                    "fr": "Ce paramètre par dèfault peut être modifié pour chaque bibliothèque individuelle"
+                }
+            },
             {
                 "name": "is_public",
                 "type": "boolean",
-                "default": true
-            },
-            {
-                "name": "language",
-                "type": "string",
-                "ask": {
-                    "en": "Choose the application language",
-                    "fr": "Choisissez la langue de l'application"
-                },
-                "choices": ["fr", "en"],
-                "default": "fr"
-            },
-            {
-                "name": "password",
-                "type": "password",
-                "help": {
-                    "en": "Use the help field to add an information for the admin about this question.",
-                    "fr": "Utilisez le champ aide pour ajouter une information à l'intention de l'administrateur à propos de cette question."
-                },
-                "example": "Choose a password"
+                "default": false
             }
         ]
     }
