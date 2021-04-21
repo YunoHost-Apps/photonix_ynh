@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+source /usr/share/yunohost/helpers
+
+app="${0//.\/50-}"
+username="$1"
+user_email="$2"
+user_firstname="$4"
+user_lastname="$5"
+
+final_path="$(ynh_app_setting_get --app=$app --key=final_path)"
+
+classification_color_enabled=$(ynh_app_setting_get --app=$app --key=classification_color_enabled)
+classification_location_enabled=$(ynh_app_setting_get --app=$app --key=classification_location_enabled)
+classification_style_enabled=$(ynh_app_setting_get --app=$app --key=classification_style_enabled)
+classification_object_enabled=$(ynh_app_setting_get --app=$app --key=classification_object_enabled)
+
+sudo -u $app bash -c "
+		source \"$final_path/venv/bin/activate\"
+		set -a
+		source \"$final_path/photonix.env\"
+		python \"$final_path/photonix/manage.py\" shell
+	" <<< "
+from django.contrib.auth import get_user_model
+from photonix.photos.models import Library, LibraryUser, LibraryPath
+User = get_user_model()
+try:
+    user = User.objects.get(username='$username')
+    user.is_active = True
+except User.DoesNotExist:
+    user = User.objects.create_user('$username', email='$user_email')
+
+try:
+    library_path = LibraryPath.objects.get(path='/home/yunohost.multimedia/$username/Picture')
+    library = library_path.library
+except LibraryPath.DoesNotExist:
+    library = Library(name='$username\'s Personal Library', classification_color_enabled=('$classification_color_enabled' == '1'), classification_location_enabled=('$classification_location_enabled' == '1'), classification_style_enabled=('$classification_style_enabled' == '1'), classification_object_enabled=('$classification_object_enabled' == '1'), setup_stage_completed='Th')
+    library.save()
+    library_path = LibraryPath(library=library, type='St', backend_type='Lo', path='/home/yunohost.multimedia/$username/Picture', watch_for_changes=True)
+    library_path.save()
+
+try:
+    library_user = LibraryUser.objects.get(library=library, user=user)
+except LibraryUser.DoesNotExist:
+    library_user = LibraryUser(library=library, user=user, owner=True)
+    library_user.save()
+
+user.first_name = '$user_firstname'
+user.last_name = '$user_lastname'
+user.has_config_persional_info = True
+user.has_created_library = True
+user.has_configured_importing = True
+user.has_configured_image_analysis = True
+user.save()
+
+try:
+    shared_library_path = LibraryPath.objects.get(path='/home/yunohost.multimedia/share/Picture')
+    shared_library = shared_library_path.library
+except LibraryPath.DoesNotExist:
+    shared_library = Library(name='Shared Library', classification_color_enabled=('$classification_color_enabled' == '1'), classification_location_enabled=('$classification_location_enabled' == '1'), classification_style_enabled=('$classification_style_enabled' == '1'), classification_object_enabled=('$classification_object_enabled' == '1'), setup_stage_completed='Th')
+    shared_library.save()
+    shared_library_path = LibraryPath(library=shared_library, type='St', backend_type='Lo', path='/home/yunohost.multimedia/share/Picture', watch_for_changes=True)
+    shared_library_path.save()
+
+try:
+    shared_library_user = LibraryUser.objects.get(library=shared_library, user=user)
+except except LibraryUser.DoesNotExist:
+    shared_library_user = LibraryUser(library=shared_library, user=user, owner=False)
+    shared_library_user.save()
+"

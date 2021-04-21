@@ -1,84 +1,70 @@
-# Usage of this package (REMOVE THIS SECTION BEFORE RELEASE)
-- Copy this app before working on it.
-- Edit the `conf/nginx.conf` file to match app prerequisites.
-- Edit the `manifest.json` with app specific info.
-- Edit the `install`, `upgrade`, `remove`, `backup`, and `restore` scripts.
-  - Using the [script helpers documentation.](https://yunohost.org/#/packaging_apps_helpers)
-- Add a `LICENSE` file for the package.
-- Edit `README.md` and `README_fr.md`.
+# Photonix for YunoHost
 
-# Example app for YunoHost
-
-[![Integration level](https://dash.yunohost.org/integration/REPLACEBYYOURAPP.svg)](https://dash.yunohost.org/appci/app/REPLACEBYYOURAPP) ![](https://ci-apps.yunohost.org/ci/badges/REPLACEBYYOURAPP.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/REPLACEBYYOURAPP.maintain.svg)  
-[![Install REPLACEBYYOURAPP with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=REPLACEBYYOURAPP)
+[![Integration level](https://dash.yunohost.org/integration/photonix.svg)](https://dash.yunohost.org/appci/app/photonix) ![](https://ci-apps.yunohost.org/ci/badges/photonix.status.svg) ![](https://ci-apps.yunohost.org/ci/badges/photonix.maintain.svg)  
+[![Install photonix with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=photonix)
 
 *[Lire ce readme en français.](./README_fr.md)*
 
-> *This package allows you to install REPLACEBYYOURAPP quickly and simply on a YunoHost server.  
+> *This package allows you to install Photonix quickly and simply on a YunoHost server.  
 If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/install) to learn how to install it.*
 
 ## Overview
-Quick description of this app.
+Photonix is a photo management application that streamlines the process of storing, presenting and re-discovering photos. Smart filtering is made possible automatically by object recognition, location awareness, color analysis and other algorithms.
 
-**Shipped version:** 1.0
+**Shipped version:** 2021-04-18
 
 ## Screenshots
 
-![](Link to a screenshot of this app.)
+![](https://camo.githubusercontent.com/8010d9b6f3b32fecc5cde4ba6601ad17f3e9098b788e3bf1972989d003f8ace3/68747470733a2f2f6570697873747564696f732e636f2e756b2f75706c6f6164732f66696c65725f7075626c69632f35322f64632f35326463646666342d643936642d346466642d623135382d6235376230363936313534652f70686f746f5f6c6973742e6a7067)
 
 ## Demo
 
-* [Official demo](Link to a demo site for this app.)
+* [Official demo](https://demo.photonix.org/)
 
 ## Configuration
 
-How to configure this app: From an admin panel, a plain file with SSH, or any other way.
+There is an admin panel accessible from `https://your.domian.tld/admin/`.
 
 ## Documentation
 
- * Official documentation: Link to the official documentation of this app
- * YunoHost documentation: If specific documentation is needed, feel free to contribute.
+* Official documentation: https://photonix.org/docs/
 
 ## YunoHost specific features
 
+* LDAP SSO
+* Automatic creation of libraries from multimedia directories
+
 #### Multi-user support
 
-Are LDAP and HTTP auth supported?
-Can the app be used by multiple users?
+Are LDAP and HTTP auth supported? **LDAP only**
+Can the app be used by multiple users? **Yes**
 
 #### Supported architectures
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/REPLACEBYYOURAPP.svg)](https://ci-apps.yunohost.org/ci/apps/REPLACEBYYOURAPP/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/REPLACEBYYOURAPP.svg)](https://ci-apps-arm.yunohost.org/ci/apps/REPLACEBYYOURAPP/)
+* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/photonix.svg)](https://ci-apps.yunohost.org/ci/apps/photonix/)
+* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/photonix.svg)](https://ci-apps-arm.yunohost.org/ci/apps/photonix/)
 
 ## Limitations
 
-* Any known limitations.
-
-## Additional information
-
-* Other info you would like to add about this app.
-
-**More info on the documentation page:**  
-https://yunohost.org/packaging_apps
+* The upstream app has not yet had a stable release, there may be bugs.
 
 ## Links
 
- * Report a bug: https://github.com/YunoHost-Apps/REPLACEBYYOURAPP_ynh/issues
- * App website: Link to the official website of this app.
- * Upstream app repository: Link to the official repository of the upstream app.
- * YunoHost website: https://yunohost.org/
+* Report a bug: https://github.com/YunoHost-Apps/photonix_ynh/issues
+* App website: https://photonix.org/
+* Upstream app repository: https://github.com/damianmoore/photonix/
+* YunoHost website: https://yunohost.org/
 
 ---
 
 ## Developer info
 
 **Only if you want to use a testing branch for coding, instead of merging directly into master.**
-Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/REPLACEBYYOURAPP_ynh/tree/testing).
+Please send your pull request to the [testing branch](https://github.com/YunoHost-Apps/photonix_ynh/tree/testing).
 
 To try the testing branch, please proceed like that.
 ```
-sudo yunohost app install https://github.com/YunoHost-Apps/REPLACEBYYOURAPP_ynh/tree/testing --debug
+sudo yunohost app install https://github.com/YunoHost-Apps/photonix_ynh/tree/testing --debug
 or
-sudo yunohost app upgrade REPLACEBYYOURAPP -u https://github.com/YunoHost-Apps/REPLACEBYYOURAPP_ynh/tree/testing --debug
+sudo yunohost app upgrade photonix -u https://github.com/YunoHost-Apps/photonix_ynh/tree/testing --debug
 ```

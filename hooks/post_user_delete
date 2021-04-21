@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+source /usr/share/yunohost/helpers
+
+app="${0//.\/50-}"
+username="$1"
+purge="$2"
+
+final_path="$(ynh_app_setting_get --app=$app --key=final_path)"
+
+sudo -u $app bash -c "
+		source \"$final_path/venv/bin/activate\"
+		set -a
+		source \"$final_path/photonix.env\"
+		python \"$final_path/photonix/manage.py\" shell
+	" <<< "
+from django.contrib.auth import get_user_model
+from photonix.photos.models import Library, LibraryUser, LibraryPath
+User = get_user_model()
+try:
+    user = User.objects.get(username='$username')
+    user.is_active = False
+    user.save()
+    if $purge:
+        LibraryPath.objects.filter(path='/home/yunohost.multimedia/$username/Picture').delete()
+        LibraryUser.objects.filter(user=user).delete()
+        Library.objects.filter(name='$username\'s Personal Library').delete()
+        user.delete()
+except User.DoesNotExist:
+    pass
+"

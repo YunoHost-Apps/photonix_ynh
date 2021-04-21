@@ -1,0 +1,16 @@
+[Unit]
+Description=Photonix classification_scheduler
+After=network.target __APP__-app_server.service
+
+[Service]
+Type=simple
+User=__APP__
+Group=__APP__
+WorkingDirectory=__FINALPATH__/srv/photonix
+EnvironmentFile=__FINALPATH__/photonix.env
+ExecStart=/usr/bin/env bash -c "PATH=__FINALPATH__/venv/bin:$PATH sleep 8 && nice -n 18 __FINALPATH__/venv/bin/python __FINALPATH__/srv/photonix/manage.py classification_scheduler"
+StandardOutput=append:/var/log/__APP__/__APP__-classification_scheduler.log
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target

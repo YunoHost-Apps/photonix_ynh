@@ -1,0 +1,16 @@
+[Unit]
+Description=Photonix watch_photos
+After=network.target __APP__-app_server.service
+
+[Service]
+Type=simple
+User=__APP__
+Group=__APP__
+WorkingDirectory=__FINALPATH__/srv/photonix
+EnvironmentFile=__FINALPATH__/photonix.env
+ExecStart=/usr/bin/env bash -c "PATH=__FINALPATH__/venv/bin:$PATH nice -n 16 __FINALPATH__/photonix/manage.py watch_photos"
+StandardOutput=append:/var/log/__APP__/__APP__-watch_photos.log
+StandardError=inherit
+
+[Install]
+WantedBy=multi-user.target

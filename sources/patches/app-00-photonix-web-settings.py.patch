@@ -1,0 +1,40 @@
+diff --git a/photonix/web/settings.py b/photonix/web/settings.py
+index e6caf58..a5ca667 100644
+--- a/photonix/web/settings.py
++++ b/photonix/web/settings.py
+@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
+ from datetime import timedelta
+ import os
+ from pathlib import Path
+-
++import ldap
+ 
+ # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+ BASE_DIR = str(Path(__file__).parent.parent.resolve())
+@@ -22,7 +22,7 @@ BASE_DIR = str(Path(__file__).parent.parent.resolve())
+ # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
+ 
+ # SECURITY WARNING: keep the secret key used in production secret!
+-SECRET_KEY = 'r*z#sh2aqb!zjz#s7h@5&toyx@t_r4nfrgwg%r$4)2@d@8ypyb'
++SECRET_KEY = os.environ['SECRET_KEY']
+ 
+ # SECURITY WARNING: don't run with debug turned on in production!
+ DEBUG = os.environ.get('ENV', 'prd') != 'prd'
+@@ -93,6 +93,7 @@ DATABASES = {
+ }
+ 
+ AUTHENTICATION_BACKENDS = [
++    'django_auth_ldap.backend.LDAPBackend',
+     'graphql_jwt.backends.JSONWebTokenBackend',
+     'django.contrib.auth.backends.ModelBackend',
+ ]
+@@ -117,6 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
+     },
+ ]
+ 
++AUTH_LDAP_USER_DN_TEMPLATE = "uid=%(user)s,ou=users,dc=yunohost,dc=org"
++
++AUTH_LDAP_USER_ATTR_MAP = {"username": "uid", "first_name": "givenName", "email": "mail", "last_name": "sn"}
+ 
+ # Internationalization
+ # https://docs.djangoproject.com/en/1.10/topics/i18n/
