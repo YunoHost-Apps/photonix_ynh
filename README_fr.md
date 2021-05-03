@@ -11,7 +11,7 @@ Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install
 ## Vue d'ensemble
 Photonix est une application de gestion de photos qui simplifie le processus de stocker, présenter er re-découvrir ses photos. Le filtrage intelligent est rendu possible automatiquement grâce à la reconnaissance d'objets, la localisation, l'analyse de couleurs, et d'autres algorithmes.
 
-**Version incluse :** 2021-04-18
+**Version incluse :** 2021-05-03
 
 ## Captures d'écran
 
@@ -52,7 +52,7 @@ Un panneau admin est accessible depuis `https://votre.domiane.tld/admin/`.
 
 * Signaler un bug : https://github.com/YunoHost-Apps/photonix_ynh/issues
 * Site de l'application : https://photonix.org/
-* Dépôt de l'application principale : https://github.com/damianmoore/photonix/
+* Dépôt de l'application principale : https://github.com/photonixapp/photonix/
 * Site web YunoHost : https://yunohost.org/
 
 ---

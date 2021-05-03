@@ -5,7 +5,7 @@
 #=================================================
 
 # dependencies used by the app
-pkg_dependencies="acl python3 python3-pip python3-venv curl build-essential gnupg libjpeg-dev libpq-dev libtiff5-dev dcraw libimage-exiftool-perl netcat nodejs libpq-dev postgresql postgresql-contrib postgresql-common redis-server libsasl2-dev libldap2-dev libssl-dev"
+pkg_dependencies="acl python3 python3-pip python3-venv nodejs postgresql postgresql-contrib postgresql-common redis-server libsasl2-dev libldap2-dev libssl-dev build-essential curl gfortran gnupg libatlas-base-dev libblas-dev libblas3 libfreetype6 libfreetype6-dev libhdf5-dev libjpeg-dev liblapack-dev liblapack3 libpq-dev libtiff5-dev netcat"
 
 #=================================================
 # PERSONAL HELPERS
@@ -44,17 +44,21 @@ function patch_files {
 
 function build_django_backend {
 	chown -R $app:$app "$final_path"
-	pushd "$final_path" || ynh_die
-		sudo -u  $app python3 -m venv "$final_path/venv"
-		sudo -u $app $final_path/venv/bin/pip --cache-dir $final_path/.cache/pip install -U wheel pip setuptools 2>&1
-		sudo -u $app $final_path/venv/bin/pip --cache-dir $final_path/.cache/pip install -U --requirement requirements.txt 2>&1
-		sudo -u $app $final_path/venv/bin/pip --cache-dir $final_path/.cache/pip install -U django-auth-ldap 2>&1
+	pushd "$final_path"
+		sudo -u $app python3 -m venv "$final_path/venv"
+		sudo -u $app $final_path/venv/bin/pip --cache-dir "$final_path/.cache/pip" install -U wheel pip setuptools 2>&1
+		while read requirement ; do
+			if [ ! -z "$requirement" ] && [[ ! "$requirement" =~ ^'#'.*  ]]; then
+				sudo -u $app PYTHONUNBUFFERED=1 "$final_path/venv/bin/pip" --cache-dir "$final_path/.cache/pip" install "$requirement" 2>&1
+			fi
+		done < "$final_path/requirements.txt"
+		sudo -u $app $final_path/venv/bin/pip --cache-dir "$final_path/.cache/pip" install -U django-auth-ldap 2>&1
 		sudo -u $app mkdir -p "$final_path/srv"
 		sudo -u $app cp -rT "$final_path/photonix" "$final_path/srv/photonix"
-	popd || ynh_die
-	pushd "$final_path/srv" || ynh_die
+	popd
+	pushd "$final_path/srv"
 		sudo -u $app $final_path/venv/bin/python "$final_path/srv/photonix/manage.py" collectstatic --noinput --link 2>&1
-	popd || ynh_die
+	popd
 
 	set_permissions
 }
@@ -71,17 +75,17 @@ function build_node_frontend {
 	chown -R $app:$app "$final_path"
 	sudo -u $app touch "$final_path/.yarnrc"
 	sudo -u $app mkdir -p "$final_path/srv/ui"
-	pushd "$final_path" || ynh_die
+	pushd "$final_path"
 		sudo -u $app cp -T "$final_path/ui/package.json" "$final_path/srv/ui/package.json"
 		sudo -u $app cp -T "$final_path/ui/yarn.lock" "$final_path/srv/ui/yarn.lock"
-	popd || ynh_die
+	popd
 
-	pushd "$final_path/srv/ui" || ynh_die
+	pushd "$final_path/srv/ui"
 		sudo -u $app env "PATH=$node_path" yarn --cache-folder $final_path/yarn-cache --use-yarnrc $final_path/.yarnrc install 2>&1
 		sudo -u $app cp -rT "$final_path/ui/public" "$final_path/srv/ui/public"
 		sudo -u $app cp -rT "$final_path/ui/src" "$final_path/srv/ui/src"
 		sudo -u $app env "PATH=$node_path" yarn --cache-folder $final_path/yarn-cache --use-yarnrc $final_path/.yarnrc build 2>&1
-	popd || ynh_die
+	popd
 
 	sudo -u $app cp -rT "$final_path/ui/public" "$final_path/srv/ui/public"
 
@@ -109,8 +113,7 @@ function apply_db_migrations {
 			source \"$final_path/photonix.env\"
 			python \"$final_path/photonix/manage.py\" makemigrations
 			python \"$final_path/photonix/manage.py\" migrate"
-	popd || ynh_die
-
+	popd
 }
 
 services="app_server watch_photos raw_scheduler raw_processor thumbnail_processor classification_scheduler classification_color_processor classification_location_processor classification_style_processor classification_object_processor rescan_photos_periodically"
