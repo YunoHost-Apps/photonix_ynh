@@ -1,7 +1,7 @@
-SOURCE_URL=https://github.com/photonixapp/photonix/archive/refs/tags/v0.3.0.tar.gz
-SOURCE_SUM=47b718db11e72c1e01fe9a2e2b5be59f9011ce98605531cbffb987bf10633a76
+SOURCE_URL=https://github.com/photonixapp/photonix/archive/refs/tags/v0.4.0.tar.gz
+SOURCE_SUM=5e550f77058b665707c1d0212dcb4da7c5c212c49f97de1e25bf0d662015c7c3
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
-SOURCE_FILENAME=v0.3.0.tar.gz
+SOURCE_FILENAME=v0.4.0.tar.gz
 SOURCE_EXTRACT=true
