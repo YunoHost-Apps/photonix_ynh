@@ -93,6 +93,14 @@ ynh_remove_logrotate
 ynh_secure_remove --file="/var/log/$app"
 
 #=================================================
+# REMOVE NODEJS
+#=================================================
+ynh_script_progression --message="Removing Node.js..." --weight=1
+
+# Remove the app-specific logrotate config
+ynh_remove_nodejs
+
+#=================================================
 # GENERIC FINALIZATION
 #=================================================
 # REMOVE DEDICATED USER
