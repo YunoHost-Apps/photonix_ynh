@@ -5,7 +5,7 @@
 #=================================================
 
 # dependencies used by the app
-pkg_dependencies="acl python3 python3-pip python3-venv nodejs postgresql postgresql-contrib postgresql-common redis-server libsasl2-dev libldap2-dev libssl-dev build-essential curl gfortran gnupg libatlas-base-dev libblas-dev libblas3 libfreetype6 libfreetype6-dev libhdf5-dev libjpeg-dev liblapack-dev liblapack3 libpq-dev libtiff5-dev netcat"
+pkg_dependencies="acl python3 python3-pip python3-venv nodejs postgresql postgresql-contrib postgresql-common redis-server libsasl2-dev libldap2-dev libssl-dev build-essential curl gfortran gnupg libatlas-base-dev libblas-dev libblas3 libfreetype6 libfreetype6-dev libhdf5-dev libjpeg-dev liblapack-dev liblapack3 libpq-dev libtiff5-dev netcat libimage-exiftool-perl"
 
 #=================================================
 # PERSONAL HELPERS
