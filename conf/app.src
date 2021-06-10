@@ -1,7 +1,7 @@
-SOURCE_URL=https://github.com/photonixapp/photonix/archive/refs/tags/v0.6.0.tar.gz
-SOURCE_SUM=5ded04d9edec11e42de85a0c9398c8bfa8841bef93df851a4f74d5b57ad7a9a2
+SOURCE_URL=https://github.com/photonixapp/photonix/archive/refs/tags/v0.8.0.tar.gz
+SOURCE_SUM=6434a8fcabf7a820bbd60eab200c77e39a123145ba7af2dd34a535226d2f41e8
 SOURCE_SUM_PRG=sha256sum
 SOURCE_FORMAT=tar.gz
 SOURCE_IN_SUBDIR=true
-SOURCE_FILENAME=v0.6.0.tar.gz
+SOURCE_FILENAME=v0.8.0.tar.gz
 SOURCE_EXTRACT=true
