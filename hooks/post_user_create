@@ -11,6 +11,7 @@ final_path="$(ynh_app_setting_get --app=$app --key=final_path)"
 
 classification_color_enabled=$(ynh_app_setting_get --app=$app --key=classification_color_enabled)
 classification_location_enabled=$(ynh_app_setting_get --app=$app --key=classification_location_enabled)
+classification_face_enabled=$(ynh_app_setting_get --app=$app --key=classification_face_enabled)
 classification_style_enabled=$(ynh_app_setting_get --app=$app --key=classification_style_enabled)
 classification_object_enabled=$(ynh_app_setting_get --app=$app --key=classification_object_enabled)
 
@@ -33,7 +34,7 @@ try:
     library_path = LibraryPath.objects.get(path='/home/yunohost.multimedia/$username/Picture')
     library = library_path.library
 except LibraryPath.DoesNotExist:
-    library = Library(name='$username\'s Personal Library', classification_color_enabled=('$classification_color_enabled' == '1'), classification_location_enabled=('$classification_location_enabled' == '1'), classification_style_enabled=('$classification_style_enabled' == '1'), classification_object_enabled=('$classification_object_enabled' == '1'), setup_stage_completed='Th')
+    library = Library(name='$username\'s Personal Library', classification_color_enabled=('$classification_color_enabled' == '1'), classification_location_enabled=('$classification_location_enabled' == '1'), classification_face_enabled=('$classification_face_enabled' == '1'), classification_style_enabled=('$classification_style_enabled' == '1'), classification_object_enabled=('$classification_object_enabled' == '1'), setup_stage_completed='Th')
     library.save()
     library_path = LibraryPath(library=library, type='St', backend_type='Lo', path='/home/yunohost.multimedia/$username/Picture', watch_for_changes=True)
     library_path.save()
@@ -56,7 +57,7 @@ try:
     shared_library_path = LibraryPath.objects.get(path='/home/yunohost.multimedia/share/Picture')
     shared_library = shared_library_path.library
 except LibraryPath.DoesNotExist:
-    shared_library = Library(name='Shared Library', classification_color_enabled=('$classification_color_enabled' == '1'), classification_location_enabled=('$classification_location_enabled' == '1'), classification_style_enabled=('$classification_style_enabled' == '1'), classification_object_enabled=('$classification_object_enabled' == '1'), setup_stage_completed='Th')
+    shared_library = Library(name='Shared Library', classification_color_enabled=('$classification_color_enabled' == '1'), classification_location_enabled=('$classification_location_enabled' == '1'), classification_face_enabled=('$classification_face_enabled' == '1'), classification_style_enabled=('$classification_style_enabled' == '1'), classification_object_enabled=('$classification_object_enabled' == '1'), setup_stage_completed='Th')
     shared_library.save()
     shared_library_path = LibraryPath(library=shared_library, type='St', backend_type='Lo', path='/home/yunohost.multimedia/share/Picture', watch_for_changes=True)
     shared_library_path.save()

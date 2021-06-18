@@ -56,6 +56,16 @@ ynh_script_progression --message="Making sure dedicated system user exists..." -
 ynh_system_user_create --username=$app --home_dir="$data_path"
 
 #=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+
+if [ -z "$classification_face_enabled" ]; then
+	classification_face_enabled=1
+	ynh_app_setting_set --app=$app --key=classification_face_enabled --value=$classification_face_enabled
+fi
+
+#=================================================
 # UPGRADE DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..." --weight=15

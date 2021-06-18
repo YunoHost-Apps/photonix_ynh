@@ -54,7 +54,20 @@
                 "default": true,
                 "ask": {
                     "en": "Identify photo locations (medium)?",
-                    "fr": "Identifier la localizations des photos (rapide) ?"
+                    "fr": "Identifier la localizations des photos (moyen) ?"
+                },
+                "help": {
+                    "en": "This default parameter can be overridden for individual libraries",
+                    "fr": "Ce paramètre par dèfault peut être modifié pour chaque bibliothèque individuelle"
+                }
+            },
+            {
+                "name": "classification_face_enabled",
+                "type": "boolean",
+                "default": true,
+                "ask": {
+                    "en": "Identify faces in photos (medium)?",
+                    "fr": "Identifier les visages dans les photos (moyen) ?"
                 },
                 "help": {
                     "en": "This default parameter can be overridden for individual libraries",

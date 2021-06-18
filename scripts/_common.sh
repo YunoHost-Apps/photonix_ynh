@@ -116,7 +116,7 @@ function apply_db_migrations {
 	popd
 }
 
-services="app_server watch_photos raw_scheduler raw_processor thumbnail_processor classification_scheduler classification_color_processor classification_location_processor classification_style_processor classification_object_processor rescan_photos_periodically"
+services="app_server watch_photos raw_scheduler raw_processor thumbnail_processor classification_scheduler classification_color_processor classification_location_processor classification_face_detection_processor classification_style_processor classification_object_processor classification_event_processor rescan_photos_periodically"
 
 function set_up_logrotate {
 	local i=0
@@ -184,6 +184,7 @@ function load_settings {
 	port=$(ynh_app_setting_get --app=$app --key=port)
 	classification_color_enabled=$(ynh_app_setting_get --app=$app --key=classification_color_enabled)
 	classification_location_enabled=$(ynh_app_setting_get --app=$app --key=classification_location_enabled)
+	classification_face_enabled=$(ynh_app_setting_get --app=$app --key=classification_face_enabled)
 	classification_style_enabled=$(ynh_app_setting_get --app=$app --key=classification_style_enabled)
 	classification_object_enabled=$(ynh_app_setting_get --app=$app --key=classification_object_enabled)
 }
