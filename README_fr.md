@@ -11,7 +11,7 @@ Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install
 ## Vue d'ensemble
 Photonix est une application de gestion de photos qui simplifie le processus de stocker, présenter er re-découvrir ses photos. Le filtrage intelligent est rendu possible automatiquement grâce à la reconnaissance d'objets et de visages, la localisation, l'analyse de couleurs, et d'autres algorithmes.
 
-**Version incluse :** 0.9.0
+**Version incluse :** 0.10.0
 
 ## Captures d'écran
 
