@@ -11,7 +11,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 ## Overview
 Photonix is a photo management application that streamlines the process of storing, presenting and re-discovering photos. Smart filtering is made possible automatically by object and face recognition, location awareness, color analysis and other algorithms.
 
-**Shipped version:** 0.11.0
+**Shipped version:** 0.16.0
 
 ## Screenshots
 

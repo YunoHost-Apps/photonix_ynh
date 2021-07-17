@@ -6,7 +6,7 @@
         "en": "Photo management application that streamlines the process of storing, presenting and re-discovering photos",
         "fr": "Application de gestion de photos qui simplifie le processus de stocker, présenter er re-découvrir ses photos"
     },
-    "version": "0.11.0~ynh1",
+    "version": "0.16.0~ynh1",
     "url": "https://photonix.org/",
     "license": "AGPL-3.0-only",
     "maintainer": {
