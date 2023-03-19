@@ -6,7 +6,7 @@
         "en": "Photo management application that streamlines the process of storing, presenting and re-discovering photos",
         "fr": "Application de gestion de photos qui simplifie le processus de stocker, présenter er re-découvrir ses photos"
     },
-    "version": "0.22.0~ynh1",
+    "version": "0.24.0~ynh1",
     "url": "https://photonix.org/",
     "license": "AGPL-3.0-only",
     "maintainer": {
@@ -14,7 +14,7 @@
         "email": "jules.bertholet@example.com"
     },
     "requirements": {
-        "yunohost": ">= 4.2.4"
+        "yunohost": ">= 11.1.15"
     },
     "multi_instance": true,
     "services": [
@@ -26,13 +26,11 @@
         "install" : [
             {
                 "name": "domain",
-                "type": "domain",
-                "example": "example.com"
+                "type": "domain"
             },
             {
                 "name": "admin",
-                "type": "user",
-                "example": "johndoe"
+                "type": "user"
             },
 
             {
