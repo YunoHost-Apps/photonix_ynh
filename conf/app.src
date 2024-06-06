@@ -1,6 +1,0 @@
-SOURCE_URL=https://github.com/photonixapp/photonix/archive/refs/tags/v0.22.0.tar.gz
-SOURCE_SUM=1a34e4ee981455e826fe5bf4fbcba7d9fba36b94802f8c927dfbfa5b6c3e3848
-SOURCE_SUM_PRG=sha256sum
-SOURCE_FORMAT=tar.gz
-SOURCE_IN_SUBDIR=true
-SOURCE_EXTRACT=true

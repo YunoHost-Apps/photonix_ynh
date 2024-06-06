@@ -1,0 +1,108 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
+packaging_format = 2
+
+id = "photonix"
+name = "Photonix"
+description.en = "Photo management application that streamlines the process of storing, presenting and re-discovering photos"
+description.fr = "Application de gestion de photos qui simplifie le processus de stocker, présenter er re-découvrir ses photos"
+
+version = "0.22.0~ynh1"
+
+maintainers = ["Jules Bertholet"]
+
+[upstream]
+license = "AGPL-3.0-only"
+website = "https://photonix.org/"
+cpe = "???" # FIXME: optional but recommended if relevant, this is meant to contain the Common Platform Enumeration, which is sort of a standard id for applications defined by the NIST. In particular, Yunohost may use this is in the future to easily track CVE (=security reports) related to apps. The CPE may be obtained by searching here: https://nvd.nist.gov/products/cpe/search. For example, for Nextcloud, the CPE is 'cpe:2.3:a:nextcloud:nextcloud' (no need to include the version number)
+fund = "???" # FIXME: optional but recommended (or remove if irrelevant / not applicable). This is meant to be an URL where people can financially support this app, especially when its development is based on volunteers and/or financed by its community. YunoHost may later advertise it in the webadmin.
+
+[integration]
+yunohost = ">= 4.2.4"
+architectures = "all" # FIXME: can be replaced by a list of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386"]
+multi_instance = true
+ldap = "?" # FIXME: replace with true, false, or "not_relevant". Not to confuse with the "sso" key : the "ldap" key corresponds to wether or not a user *can* login on the app using its YunoHost credentials.
+sso = "?" # FIXME: replace with true, false, or "not_relevant". Not to confuse with the "ldap" key : the "sso" key corresponds to wether or not a user is *automatically logged-in* on the app when logged-in on the YunoHost portal.
+disk = "50M" # FIXME: replace with an **estimate** minimum disk requirement. e.g. 20M, 400M, 1G, ...
+ram.build = "50M" # FIXME: replace with an **estimate** minimum ram requirement. e.g. 50M, 400M, 1G, ...
+ram.runtime = "50M" # FIXME: replace with an **estimate** minimum ram requirement. e.g. 50M, 400M, 1G, ...
+
+[install]
+    [install.domain]
+    # this is a generic question - ask strings are automatically handled by Yunohost's core
+    type = "domain"
+
+    [install.admin]
+    # this is a generic question - ask strings are automatically handled by Yunohost's core
+    type = "user"
+
+    [install.classification_color_enabled]
+    ask.en = "Analyse photo colors (fast)?"
+    ask.fr = "Analyser les couleurs des photos (rapide) ?"
+    help.en = "This default parameter can be overridden for individual libraries"
+    help.fr = "Ce paramètre par dèfault peut être modifié pour chaque bibliothèque individuelle"
+    type = "boolean"
+    default = true
+
+    [install.classification_location_enabled]
+    ask.en = "Identify photo locations (medium)?"
+    ask.fr = "Identifier la localizations des photos (moyen) ?"
+    help.en = "This default parameter can be overridden for individual libraries"
+    help.fr = "Ce paramètre par dèfault peut être modifié pour chaque bibliothèque individuelle"
+    type = "boolean"
+    default = true
+
+    [install.classification_face_enabled]
+    ask.en = "Identify faces in photos (medium)?"
+    ask.fr = "Identifier les visages dans les photos (moyen) ?"
+    help.en = "This default parameter can be overridden for individual libraries"
+    help.fr = "Ce paramètre par dèfault peut être modifié pour chaque bibliothèque individuelle"
+    type = "boolean"
+    default = true
+
+    [install.classification_style_enabled]
+    ask.en = "Recognize photo styles (medium)?"
+    ask.fr = "Reconnaître le style des photos (moyen) ?"
+    help.en = "This default parameter can be overridden for individual libraries"
+    help.fr = "Ce paramètre par dèfault peut être modifié pour chaque bibliothèque individuelle"
+    type = "boolean"
+    default = true
+
+    [install.classification_object_enabled]
+    ask.en = "Detect objects in photos (slow)?"
+    ask.fr = "Reconnaître les objets dans les photos (lent) ?"
+    help.en = "This default parameter can be overridden for individual libraries"
+    help.fr = "Ce paramètre par dèfault peut être modifié pour chaque bibliothèque individuelle"
+    type = "boolean"
+    default = true
+
+    [install.init_main_permission]
+    type = "group"
+    default = false
+
+[resources]
+        [resources.sources.main]
+        url = "https://github.com/photonixapp/photonix/archive/refs/tags/v0.22.0.tar.gz"
+        sha256 = "1a34e4ee981455e826fe5bf4fbcba7d9fba36b94802f8c927dfbfa5b6c3e3848"
+
+
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.permissions]
+    main.url = "/"
+
+    [resources.ports]
+    main.default = 8888
+
+    [resources.apt]
+    packages = "acl, python3, python3-pip, python3-venv, nodejs, postgresql, postgresql-contrib, postgresql-common, redis-server, libsasl2-dev, libldap2-dev, libssl-dev, build-essential, curl, gfortran, gnupg, libatlas-base-dev, libblas-dev, libblas3, libfreetype6, libfreetype6-dev, libhdf5-dev, libheif-examples, libjpeg-dev, liblapack-dev, liblapack3, libpq-dev, libtiff5-dev, netcat, libimage-exiftool-perl"
+
+        [[resources.apt.extras]]
+        repo = "deb https://dl.yarnpkg.com/debian/ stable main"
+        key = "https://dl.yarnpkg.com/debian/pubkey.gpg"
+        packages = "yarn"
+
+    [resources.database]
+    type = "postgresql"

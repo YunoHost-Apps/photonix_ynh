@@ -6,9 +6,9 @@ After=network.target postgresql.service redis-server.service
 Type=simple
 User=__APP__
 Group=__APP__
-WorkingDirectory=__FINALPATH__/srv/photonix
-EnvironmentFile=__FINALPATH__/photonix.env
-ExecStart=/usr/bin/env bash -c "PATH=__FINALPATH__/venv/bin:$PATH __FINALPATH__/venv/bin/python __FINALPATH__/srv/photonix/manage.py rescan_photos && __FINALPATH__/venv/bin/python __FINALPATH__/srv/photonix/manage.py reset_redis_locks && __FINALPATH__/venv/bin/python __FINALPATH__/srv/photonix/manage.py housekeeping && __FINALPATH__/venv/bin/gunicorn -b 0.0.0.0:$PHOTONIX_PORT web.wsgi"
+WorkingDirectory=__INSTALL_DIR__/srv/photonix
+EnvironmentFile=__INSTALL_DIR__/photonix.env
+ExecStart=/usr/bin/env bash -c "PATH=__INSTALL_DIR__/venv/bin:$PATH __INSTALL_DIR__/venv/bin/python __INSTALL_DIR__/srv/photonix/manage.py rescan_photos && __INSTALL_DIR__/venv/bin/python __INSTALL_DIR__/srv/photonix/manage.py reset_redis_locks && __INSTALL_DIR__/venv/bin/python __INSTALL_DIR__/srv/photonix/manage.py housekeeping && __INSTALL_DIR__/venv/bin/gunicorn -b 0.0.0.0:$PHOTONIX_PORT web.wsgi"
 StandardOutput=append:/var/log/__APP__/__APP__-app_server.log
 StandardError=inherit
 
